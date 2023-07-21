@@ -1,0 +1,48 @@
+<nav id="menu" class="navbar">
+{#    导航栏#}
+		<div class="container">
+			<div class="navbar-header"><span id="heading" class="visible-xs">Categories</span>
+			  <button type="button" class="btn btn-navbar navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"><i class="fa fa-bars"></i></button>
+			</div>
+			<div class="collapse navbar-collapse navbar-ex1-collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="/index/">主页</a></li>
+{#					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">新鲜推荐</a>#}
+{#						<div class="dropdown-menu">#}
+{#							<div class="dropdown-inner">#}
+{#								<ul class="list-unstyled">#}
+{#									<li><a href="/category/">热销商品</a></li>#}
+{#									<li><a href="/category/">最常玩的游戏</a></li>#}
+{#                                    <li><a href="/category/">新品与热门商品</a></li>#}
+{#                                    <li><a href="/category/">特别优惠</a></li>#}
+{#                                    <li><a href="/category/">最近更新</a></li>#}
+{#								</ul>#}
+{#							</div>#}
+{#						</div>#}
+{#					</li>#}
+					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">类别</a>
+						<div class="dropdown-menu">
+							<div class="dropdown-inner">
+								<ul class="list-unstyled">
+                                    <li><a href="/category/{{ cate_kind.0.com_id }}">动作</a></li>
+{#									<li><a href="{% url 'app_commidity:action' %}">动作</a></li>#}
+									<li><a href="/category/{{ cate_kind.1.com_id }}">冒险</a></li>
+									<li><a href="/category/{{ cate_kind.3.com_id }}">单人</a></li>
+									<li><a href="/category/{{ cate_kind.5.com_id }}">多人</a></li>
+									<li><a href="/category/{{ cate_kind.7.com_id }}">剧情</a></li>
+									<li><a href="/category/{{ cate_kind.8.com_id }}">体育</a></li>
+									<li><a href="/category/{{ cate_kind.9.com_id }}">心理恐怖</a></li>
+
+
+
+								</ul>
+							</div>
+						</div>
+					</li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">订阅设置</a>
+						</li>
+					<li><a href="{% url "app_user:my_index" %}">个人中心</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>

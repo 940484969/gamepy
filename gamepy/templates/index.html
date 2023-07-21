@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="">
+    <meta name="author" content="">
+	
+    <title>Mobile Shop</title>
+	
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css" type="text/css">
+	
+	<!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/style.css">
+	
+	
+	<!-- Custom Fonts -->
+    <link rel="stylesheet" href="/static/font-awesome/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/static/fonts/font-slider.css" type="text/css">
+	
+	<!-- jQuery and Modernizr-->
+	<script src="/static/js/jquery-2.1.1.js"></script>
+	
+	<!-- Core JavaScript Files -->  	 
+    <script src="/static/js/bootstrap.min.js"></script>
+	
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="js/html5shiv.js"></script>
+        <script src="js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    {% include 'top.html' %}
+    {% include 'header.html' %}
+    {% include 'navigation.html' %}
+
+	<!--Top-->
+
+	<!--Header-->
+
+	<!--Navigation-->
+{#     导航兰 #}
+    {#     导航兰  /#}
+	<!--//////////////////////////////////////////////////-->
+	<!--///////////////////HomePage///////////////////////-->
+	<!--//////////////////////////////////////////////////-->
+	<div id="page-content" class="home-page">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<!-- Carousel -->
+					<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                        {# 轮播图 #}
+						<div class="carousel-inner">
+                            {% for c in carousel %}
+                                {% if forloop.counter == 1 %}
+							<div class="item active">
+                                {% else %}
+                            <div class="item">
+                                {% endif %}
+								<a href="{%  url 'app_commidity:product' %}?i={{ c.sku_id.sku_id }}" ><img src="/static/media/{{ c.sku_id.commditypicture_set.all.0.comm_picture.name }}" alt="First slide"></a>
+								<!-- Static Header -->
+								<div class="header-text hidden-xs">
+									<div class="col-md-12 text-center">
+									</div>
+								</div><!-- /header-text -->
+							</div>
+                            {% endfor %}
+						</div>
+						<!-- Controls -->
+                        {# 轮播图的箭头 #}
+						<a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+							<span class="glyphicon glyphicon-chevron-left"></span>
+						</a>
+						<a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+							<span class="glyphicon glyphicon-chevron-right"></span>
+						</a>
+					</div><!-- /carousel -->
+				</div>
+			</div>
+
+
+
+            {# 今日特惠 显示内容#}
+
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="heading"><h2>今日特惠</h2></div>
+					<div class="products">
+                        {%  for p in promotion  %}
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+							<div class="product">
+								<div class="image"><a id="home_pro_id_{{ forloop.counter }}" href="{%  url 'app_commidity:product' %}?i={{ p.sku_id.sku_id }}"><img height="400" src="/static/media/{{ p.sku_id.commditypicture_set.all.0.comm_picture.name }}"></a></div>
+                                <div class="buttons">
+                                    {# href="{% url 'app_cart:cart'%}" #}
+									<button class="btn cart" id="home_pro_{{ forloop.counter }}"><span class="glyphicon glyphicon-shopping-cart"></span></button>
+									<a class="btn wishlist" href="#"><span class="glyphicon glyphicon-heart"></span></a>
+									<a class="btn compare" href="#"><span class="glyphicon glyphicon-transfer"></span></a>
+								</div>
+								<div class="caption">
+                                    {#      乘法      #}
+									<div class="name"><h3><a href="{%  url 'app_commidity:product' %}?i={{ p.sku_id.sku_id }}">{{ p.sku_id.sku_name }}</a></h3></div>
+
+									<div class="price">{%  widthratio  p.sku_id.sku_discount 1 p.sku_id.sku_price  %}<span>{{ p.sku_id.sku_price }}</span></div>
+									<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span></div>
+								</div>
+							</div>
+						</div>
+                        <script>
+                         $('#home_pro_{{ forloop.counter }}').click(
+                    function(){
+
+                        $.ajax({
+                                {#async: false,#}
+                                async: false,
+                                {#url: {%   url 'app_cart:add_cart' %} ,             //请求的url地址,#}
+                                url: {% url "app_cart:add_page" %} ,
+                                type:"get",        //请求的方式
+                                {#async:false,#}
+                                 data:{					//发送给后端的数据
+                                    {#obj : {{ i }};#}
+                                 sku_id : {{ p.sku_id.sku_id }},		//获得name为i1的标签值
+
+                                {#i2: {{ }},		//获得name为i2的标签值#}
+                                 },
+                            success: function (data) {
+
+                                $("#header_cart").text(data.cart_num)
+                            },
+
+                            }
+                        )
+
+                    });
+
+    </script>
+
+                        {% endfor %}
+					</div>
+				</div>
+			</div>
+
+
+{#            最新上架              #}
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="heading"><h2>最新上架</h2></div>
+					<div class="products">
+
+						<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+							<div class="product">
+{#								<div class="image"><a href="/product/"><img src="/static/images/iphone.png" /></a></div>#}
+{#                                sku[15].commditypicture_set.all()[0].comm_picture.name#}
+                                <div class="image"><a href="{%  url 'app_commidity:product' %}?i={{ sku.9.sku_id }}"><img src="/static/media/{{ sku.9.commditypicture_set.all.0.comm_picture.name }}"/></a></div>
+
+
+								<div class="caption">
+									<div class="name"><h3><a href="/product/">{{ sku.9.sku_name }}</a></h3></div>
+									<div class="price">{%  widthratio  sku.9.sku_discount 1 sku.9.sku_price  %}<span>{{ sku.9.sku_price }}</span></div>
+									<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span></div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+							<div class="product">
+{#								<div class="image"><a href="/product/"><img src="/static/images/iphone.png" /></a></div>#}
+{#                                sku[15].commditypicture_set.all()[0].comm_picture.name#}
+                                <div class="image"><a href="{%  url 'app_commidity:product' %}?i={{ sku.14.sku_id }}"><img src="/static/media/{{ sku.14.commditypicture_set.all.0.comm_picture.name }}"/></a></div>
+
+
+								<div class="caption">
+									<div class="name"><h3><a href="/product/">{{ sku.14.sku_name }}</a></h3></div>
+									<div class="price">{%  widthratio  sku.14.sku_discount 1 sku.14.sku_price  %}<span>{{ sku.14.sku_price }}</span></div>
+									<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    </div>
+	{% include 'foot.html' %}
+</body>
+</html>

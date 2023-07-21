@@ -38,16 +38,18 @@ INSTALLED_APPS = [
     'app_user',
     'app_order',
     'app_commidity',
+    'app_cart',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'app_user.my_middle.CustomAuthMiddleware',
 ]
 
 ROOT_URLCONF = 'gamepy.urls'
@@ -64,6 +66,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'app_user.views.global_params',
             ],
         },
     },
@@ -83,7 +86,7 @@ DATABASES = {
         'PORT': 3306,  # 数据库端口
         'USER': 'root',  # 数据库用户名
         'PASSWORD': 'cjx.2001',  # 数据库用户密码
-        'NAME': 'gamespy'  # 数据库名字
+        'NAME': 'GAD'  # 数据库名字
     }
 }
 
@@ -137,5 +140,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # 上传文件保存的路径
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'statics/media')
 MEDIA_URL = '/media/'
+
+# LOGIN_URL = '/app_user:login/'
+LOGIN_URL = '/login/'
+
+# # 阿里的接口
+# ALIPAY_PUBLIC = open(os.path.join(BASE_DIR, 'keys', 'alipay_public.txt')).read()
+# APP_PUBLIC = open(os.path.join(BASE_DIR, 'keys', 'app_public.txt')).read()
+# APP_PRIVATE = open(os.path.join(BASE_DIR, 'keys', 'app_private.txt')).read()
+ALIPAY_PUBLIC = os.path.join(BASE_DIR, 'keys', 'alipay_public.txt')
+APP_PUBLIC = os.path.join(BASE_DIR, 'keys', 'app_public.txt')
+APP_PRIVATE = os.path.join(BASE_DIR, 'keys', 'app_private.txt')
+
+
